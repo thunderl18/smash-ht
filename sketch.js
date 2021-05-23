@@ -2,7 +2,7 @@ var PLAY = 1;
 var END = 0;
 var gameState = PLAY;
 
-var ball
+var ball,ball_image;
 var ground, invisibleGround, groundImage;
 
 var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6;
@@ -12,18 +12,18 @@ var gameOverImg,restartImg
 var jumpSound , checkPointSound, dieSound
 
 function preload(){
-  trex_running = loadAnimation("trex1.png","trex3.png","trex4.png");
-  trex_collided = loadAnimation("trex_collided.png");
+  ball_image = loadAnimation("Metal-Ball-PNG-715x715.jpg");
+ // trex_collided = loadAnimation("trex_collided.png");
   
   groundImage = loadImage("ground2.png");
   
   
-  obstacle1 = loadImage("obstacle1.png");
-  obstacle2 = loadImage("obstacle2.png");
-  obstacle3 = loadImage("obstacle3.png");
-  obstacle4 = loadImage("obstacle4.png");
-  obstacle5 = loadImage("obstacle5.png");
-  obstacle6 = loadImage("obstacle6.png");
+  obstacle1 = loadImage("download (1).jpg");
+  obstacle2 = loadImage("download 2.png");
+  obstacle3 = loadImage("download (1).jpg");
+  obstacle4 = loadImage("download2.png");
+  obstacle5 = loadImage("download(1).png");
+  obstacle6 = loadImage("download2.png");
   
   restartImg = loadImage("restart.png")
   gameOverImg = loadImage("gameOver.png")
@@ -40,8 +40,8 @@ function setup() {
  console.log(message)
   
   ball = createSprite(50,160,20,50);
-  ball.addAnimation("running", trex_running);
-  trex.addAnimation("collided", trex_collided);
+  ball.addAnimation("ball", ball_image);
+  //trex.addAnimation("collided", trex_collided);
   
 
   trex.scale = 0.5;
@@ -101,12 +101,12 @@ function draw() {
     
     //jump when the space key is pressed
     if(keyDown("space")&& trex.y >= 100) {
-        trex.velocityY = -12;
+        ball.velocityY = -12;
         jumpSound.play();
     }
     
     //add gravity
-    trex.velocityY = trex.velocityY + 0.8
+    ball.velocityY = ball.velocityY + 0.8
   
     //spawn obstacles on the ground
     spawnObstacles();
@@ -148,7 +148,7 @@ function draw() {
   
  
   //stop trex from falling down
-  trex.collide(invisibleGround);
+  ball.collide(invisibleGround);
   
 
 
@@ -214,8 +214,8 @@ function spawnClouds() {
     cloud.lifetime = 200;
     
     //adjust the depth
-    cloud.depth = trex.depth;
-    trex.depth = trex.depth + 1;
+    cloud.depth = ball.depth;
+    ball.depth = ball.depth + 1;
     
     //add each cloud to the group
     cloudsGroup.add(cloud);
